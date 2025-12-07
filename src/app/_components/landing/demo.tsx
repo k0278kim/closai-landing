@@ -124,9 +124,9 @@ const getCategoryIcon = (category: string) => {
 };
 
 export function Demo() {
-    const [selectedProduct, setSelectedProduct] = useState<typeof products[0] | null>(null);
+    const [selectedProduct, setSelectedProduct] = useState<typeof products[0] | null>(products[0] ?? null);
     const [isAnalyzing, setIsAnalyzing] = useState(false);
-    const [result, setResult] = useState<typeof products[0]["result"] | null>(null);
+    const [result, setResult] = useState<typeof products[0]["result"] | null>(products[0]?.result ?? null);
     const [expandedPointId, setExpandedPointId] = useState<number | null>(null);
     const [showHeatmap, setShowHeatmap] = useState(true);
 

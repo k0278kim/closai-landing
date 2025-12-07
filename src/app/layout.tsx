@@ -16,13 +16,16 @@ const geist = Geist({
   variable: "--font-geist-sans",
 });
 
+import { GoogleAnalytics } from "~/app/_components/google-analytics";
+
 export default function RootLayout({
   children,
 }: Readonly<{ children: React.ReactNode }>) {
   return (
     <html lang="en" className={`${geist.variable}`}>
-      <body>
+      <body className="scrollbar-hide">
         <TRPCReactProvider>{children}</TRPCReactProvider>
+        <GoogleAnalytics />
       </body>
     </html>
   );
