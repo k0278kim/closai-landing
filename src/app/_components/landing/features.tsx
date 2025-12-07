@@ -1,7 +1,7 @@
 "use client";
 
 import { useRef, useState, useEffect } from "react";
-import { motion, useScroll, useTransform, useSpring, useMotionValueEvent, AnimatePresence } from "framer-motion";
+import { motion, useScroll, useTransform, useSpring, useMotionValueEvent, AnimatePresence, useInView } from "framer-motion";
 import { ReviewAnalysisDemo } from "./features/ReviewAnalysisDemo";
 import { SizeRecommendationDemo } from "./features/SizeRecommendationDemo";
 import { BodyTypeMatchDemo } from "./features/BodyTypeMatchDemo";
@@ -119,6 +119,7 @@ const SLIDES = [
 export function Features() {
     const targetRef = useRef<HTMLDivElement>(null);
     const [activeIndex, setActiveIndex] = useState(0);
+    const [isSectionActive, setIsSectionActive] = useState(false);
 
     const { scrollYProgress } = useScroll({
         target: targetRef,
@@ -129,6 +130,7 @@ export function Features() {
         // Map scroll progress (0-1) to slide index (0-3)
         const index = Math.min(Math.floor(latest * SLIDES.length), SLIDES.length - 1);
         setActiveIndex(index);
+        setIsSectionActive(latest > 0 && latest < 1);
     });
 
     return (
@@ -149,9 +151,13 @@ export function Features() {
                                     inactive: { width: "0%", transition: { duration: 0 } }
                                 }}
                                 initial="initial"
-                                animate={activeIndex > idx ? "completed" : activeIndex === idx ? "active" : "inactive"}
+                                animate={
+                                    activeIndex > idx ? "completed"
+                                        : (isSectionActive && activeIndex === idx) ? "active"
+                                            : "inactive"
+                                }
                                 onAnimationComplete={(definition) => {
-                                    if (definition === "active" && activeIndex === idx) {
+                                    if (definition === "active" && activeIndex === idx && isSectionActive) {
                                         const nextIndex = activeIndex + 1;
                                         if (targetRef.current) {
                                             const sectionTop = targetRef.current.offsetTop;
