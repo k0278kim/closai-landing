@@ -15,13 +15,24 @@ const USERS = [
     { id: 8, name: "User H", height: 165, weight: 55, size: "M", match: false, image: "https://images.unsplash.com/photo-1531746020798-e6953c6e8e04?w=400&q=80" },
 ];
 
-export function BodyTypeMatchDemo() {
+interface BodyTypeMatchDemoProps {
+    onInteractionStart?: () => void;
+    onInteractionEnd?: () => void;
+}
+
+export function BodyTypeMatchDemo({ onInteractionStart, onInteractionEnd }: BodyTypeMatchDemoProps) {
     const [isFiltered, setIsFiltered] = useState(false);
 
     const displayedUsers = isFiltered ? USERS.filter((u) => u.match) : USERS;
 
     return (
-        <div className="h-full w-full rounded-3xl bg-white/5 backdrop-blur-xl border border-white/10 p-4 sm:p-6 flex flex-col shadow-2xl">
+        <div
+            className="h-full w-full rounded-3xl bg-white/5 backdrop-blur-xl border border-white/10 p-4 sm:p-6 flex flex-col shadow-2xl"
+            onMouseEnter={onInteractionStart}
+            onMouseLeave={onInteractionEnd}
+            onTouchStart={onInteractionStart}
+            onTouchEnd={onInteractionEnd}
+        >
             {/* Header & Toggle */}
             <div className="flex items-center justify-between mb-6">
                 <div className="flex items-center gap-3">

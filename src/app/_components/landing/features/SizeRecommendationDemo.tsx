@@ -4,10 +4,17 @@ import { useState, useEffect } from "react";
 import { Ruler, Weight, CheckCircle2, ArrowRight } from "lucide-react";
 import { motion } from "framer-motion";
 
-export function SizeRecommendationDemo() {
+interface SizeRecommendationDemoProps {
+  onInteractionStart?: () => void;
+  onInteractionEnd?: () => void;
+}
+
+export function SizeRecommendationDemo({ onInteractionStart, onInteractionEnd }: SizeRecommendationDemoProps) {
   const [height, setHeight] = useState(175);
   const [weight, setWeight] = useState(70);
   const [recommendedSize, setRecommendedSize] = useState("L");
+  const [topSize, setTopSize] = useState("100");
+  const [bottomSize, setBottomSize] = useState("30");
   const [fitPrediction, setFitPrediction] = useState({
     summary: "고객님의 신체 사이즈와 구매 이력을 바탕으로 가장 적합한 사이즈를 추천해 드립니다.",
     details: [
@@ -69,7 +76,13 @@ export function SizeRecommendationDemo() {
   }, [height, weight]);
 
   return (
-    <div className="h-full w-full rounded-3xl bg-white/5 backdrop-blur-xl border border-white/10 p-4 sm:p-6 lg:p-8 flex flex-col justify-between shadow-2xl">
+    <div
+      className="h-full w-full rounded-3xl bg-white/5 backdrop-blur-xl border border-white/10 p-4 sm:p-6 lg:p-8 flex flex-col gap-6 shadow-2xl overflow-y-auto scrollbar-hide pb-6"
+      onMouseEnter={onInteractionStart}
+      onMouseLeave={onInteractionEnd}
+      onTouchStart={onInteractionStart}
+      onTouchEnd={onInteractionEnd}
+    >
       <div>
         <div className="flex items-center gap-3 mb-6">
           <div className="p-2 rounded-lg bg-white/10">
@@ -78,9 +91,9 @@ export function SizeRecommendationDemo() {
           <h3 className="text-base sm:text-lg font-bold text-white tracking-tight">Size & Fit Analysis</h3>
         </div>
 
-        <div className="space-y-8 mb-8">
+        <div className="space-y-4 sm:space-y-8 mb-8">
           {/* Height Slider */}
-          <div className="space-y-4">
+          <div className="space-y-2 sm:space-y-4">
             <div className="flex justify-between items-center text-xs sm:text-sm">
               <span className="text-white/60 font-medium">Height</span>
               <span className="text-white font-mono bg-white/10 px-2 py-1 rounded">{height} cm</span>
@@ -96,7 +109,7 @@ export function SizeRecommendationDemo() {
           </div>
 
           {/* Weight Slider */}
-          <div className="space-y-4">
+          <div className="space-y-2 sm:space-y-4">
             <div className="flex justify-between items-center text-xs sm:text-sm">
               <span className="text-white/60 font-medium">Weight</span>
               <span className="text-white font-mono bg-white/10 px-2 py-1 rounded">{weight} kg</span>
@@ -108,6 +121,36 @@ export function SizeRecommendationDemo() {
               value={weight}
               onChange={(e) => setWeight(Number(e.target.value))}
               className="w-full h-1 bg-white/10 rounded-lg appearance-none cursor-pointer accent-white"
+            />
+          </div>
+
+          {/* Top Size Input */}
+          <div className="space-y-2 sm:space-y-4">
+            <div className="flex justify-between items-center text-xs sm:text-sm">
+              <span className="text-white/60 font-medium">Top Size</span>
+              <span className="text-white font-mono bg-white/10 px-2 py-1 rounded">KR Size</span>
+            </div>
+            <input
+              type="number"
+              value={topSize}
+              onChange={(e) => setTopSize(e.target.value)}
+              placeholder="e.g. 100"
+              className="w-full bg-white/10 rounded-lg px-4 py-2 sm:py-3 text-white placeholder:text-white/20 focus:outline-none focus:ring-2 focus:ring-white/20 transition-all font-mono"
+            />
+          </div>
+
+          {/* Bottom Size Input */}
+          <div className="space-y-2 sm:space-y-4">
+            <div className="flex justify-between items-center text-xs sm:text-sm">
+              <span className="text-white/60 font-medium">Bottom Size</span>
+              <span className="text-white font-mono bg-white/10 px-2 py-1 rounded">Inch</span>
+            </div>
+            <input
+              type="number"
+              value={bottomSize}
+              onChange={(e) => setBottomSize(e.target.value)}
+              placeholder="e.g. 30"
+              className="w-full bg-white/10 rounded-lg px-4 py-2 sm:py-3 text-white placeholder:text-white/20 focus:outline-none focus:ring-2 focus:ring-white/20 transition-all font-mono"
             />
           </div>
         </div>

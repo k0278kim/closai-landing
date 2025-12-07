@@ -78,7 +78,7 @@ const SLIDES = [
                             <span className="text-white">정확한 사이즈 추천.</span>
                         </h3>
                         <p className="text-sm sm:text-xl text-white/60 leading-relaxed max-w-lg mx-auto lg:ml-auto lg:mr-0 font-light">
-                            키와 몸무게만 입력하세요.<br />
+                            신체 정보를 입력하면<br />
                             방대한 구매 데이터를 기반으로<br />
                             실패 없는 사이즈를 제안합니다.
                         </p>
@@ -120,11 +120,16 @@ export function Features() {
     const targetRef = useRef<HTMLDivElement>(null);
     const [activeIndex, setActiveIndex] = useState(0);
     const [isSectionActive, setIsSectionActive] = useState(false);
+    const [hasInteracted, setHasInteracted] = useState(false);
 
     const { scrollYProgress } = useScroll({
         target: targetRef,
         offset: ["start start", "end end"]
     });
+
+    useEffect(() => {
+        setHasInteracted(false);
+    }, [activeIndex]);
 
     useMotionValueEvent(scrollYProgress, "change", (latest) => {
         // Map scroll progress (0-1) to slide index (0-3)
@@ -153,11 +158,11 @@ export function Features() {
                                 initial="initial"
                                 animate={
                                     activeIndex > idx ? "completed"
-                                        : (isSectionActive && activeIndex === idx) ? "active"
+                                        : (isSectionActive && !hasInteracted && activeIndex === idx) ? "active"
                                             : "inactive"
                                 }
                                 onAnimationComplete={(definition) => {
-                                    if (definition === "active" && activeIndex === idx && isSectionActive) {
+                                    if (definition === "active" && activeIndex === idx && isSectionActive && !hasInteracted) {
                                         const nextIndex = activeIndex + 1;
                                         if (targetRef.current) {
                                             const sectionTop = targetRef.current.offsetTop;
@@ -189,7 +194,76 @@ export function Features() {
                             transition={{ duration: 0.5, ease: "easeInOut" }}
                             className="absolute inset-0 w-full h-full flex items-center justify-center"
                         >
-                            {SLIDES[activeIndex]?.content}
+                            {SLIDES[activeIndex]?.id === "review" && (
+                                <div className="h-full w-full flex items-center justify-center relative bg-black">
+                                    <div className="absolute inset-0 bg-[radial-gradient(circle_at_30%_50%,_var(--tw-gradient-stops))] from-white/5 via-transparent to-transparent" />
+                                    <div className="container mx-auto px-6 h-full flex flex-col lg:flex-row items-center justify-center gap-8 lg:gap-32 pt-24 lg:pt-0">
+                                        <div className="flex-none lg:flex-1 space-y-4 lg:space-y-8 z-10 text-center lg:text-left">
+                                            <h3 className="text-2xl sm:text-5xl lg:text-7xl font-bold tracking-tighter leading-tight">
+                                                수천 개의 리뷰를<br />
+                                                <span className="text-white">단 1초 만에 분석.</span>
+                                            </h3>
+                                            <p className="text-sm sm:text-xl text-white/60 leading-relaxed max-w-lg mx-auto lg:mx-0 font-light">
+                                                모든 리뷰를 다 읽을 필요 없습니다.<br />
+                                                AI가 핵심 키워드만 추출하여<br />
+                                                핏, 재질, 마감 상태를 요약해 드립니다.
+                                            </p>
+                                        </div>
+                                        <div className="flex-1 lg:flex-1 w-full max-w-md lg:max-w-xl min-h-0 lg:h-[75vh] z-10">
+                                            <ReviewAnalysisDemo
+                                                onInteractionStart={() => setHasInteracted(true)}
+                                            />
+                                        </div>
+                                    </div>
+                                </div>
+                            )}
+                            {SLIDES[activeIndex]?.id === "size" && (
+                                <div className="h-full w-full flex items-center justify-center relative bg-black">
+                                    <div className="absolute inset-0 bg-[radial-gradient(circle_at_70%_50%,_var(--tw-gradient-stops))] from-white/5 via-transparent to-transparent" />
+                                    <div className="container mx-auto px-6 h-full flex flex-col lg:flex-row-reverse items-center justify-center gap-8 lg:gap-32 pt-24 lg:pt-0">
+                                        <div className="flex-none lg:flex-1 space-y-4 lg:space-y-8 z-10 text-center lg:text-right">
+                                            <h3 className="text-2xl sm:text-5xl lg:text-7xl font-bold tracking-tighter leading-tight">
+                                                고민할 필요 없는<br />
+                                                <span className="text-white">정확한 사이즈 추천.</span>
+                                            </h3>
+                                            <p className="text-sm sm:text-xl text-white/60 leading-relaxed max-w-lg mx-auto lg:ml-auto lg:mr-0 font-light">
+                                                신체 정보를 입력하면<br />
+                                                방대한 구매 데이터를 기반으로<br />
+                                                실패 없는 사이즈를 제안합니다.
+                                            </p>
+                                        </div>
+                                        <div className="flex-1 lg:flex-1 w-full max-w-md lg:max-w-xl min-h-0 lg:h-[75vh] z-10">
+                                            <SizeRecommendationDemo
+                                                onInteractionStart={() => setHasInteracted(true)}
+                                            />
+                                        </div>
+                                    </div>
+                                </div>
+                            )}
+                            {SLIDES[activeIndex]?.id === "body" && (
+                                <div className="h-full w-full flex items-center justify-center relative bg-black">
+                                    <div className="absolute inset-0 bg-[radial-gradient(circle_at_30%_50%,_var(--tw-gradient-stops))] from-white/5 via-transparent to-transparent" />
+                                    <div className="container mx-auto px-6 h-full flex flex-col lg:flex-row items-center justify-center gap-8 lg:gap-32 pt-24 lg:pt-0">
+                                        <div className="flex-none lg:flex-1 space-y-4 lg:space-y-8 z-10 text-center lg:text-left">
+                                            <h3 className="text-2xl sm:text-5xl lg:text-7xl font-bold tracking-tighter leading-tight">
+                                                나에게 딱 맞는<br />
+                                                <span className="text-white">체형 유사 리뷰.</span>
+                                            </h3>
+                                            <p className="text-sm sm:text-xl text-white/60 leading-relaxed max-w-lg mx-auto lg:mx-0 font-light">
+                                                나와 체형이 다른 사람의 리뷰는 그만.<br />
+                                                체형이 비슷한 사용자의<br />
+                                                '진짜' 후기만 모아서 보여드립니다.
+                                            </p>
+                                        </div>
+                                        <div className="flex-1 lg:flex-1 w-full max-w-md lg:max-w-xl min-h-0 lg:h-[75vh] z-10">
+                                            <BodyTypeMatchDemo
+                                                onInteractionStart={() => setHasInteracted(true)}
+                                            />
+                                        </div>
+                                    </div>
+                                </div>
+                            )}
+                            {SLIDES[activeIndex]?.id === "intro" && SLIDES[0]?.content}
                         </motion.div>
                     </AnimatePresence>
                 </div>

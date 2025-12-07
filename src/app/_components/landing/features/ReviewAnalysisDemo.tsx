@@ -3,7 +3,12 @@
 import { motion } from "framer-motion";
 import { ThumbsUp, ThumbsDown, Scissors, Sparkles } from "lucide-react";
 
-export function ReviewAnalysisDemo() {
+interface ReviewAnalysisDemoProps {
+    onInteractionStart?: () => void;
+    onInteractionEnd?: () => void;
+}
+
+export function ReviewAnalysisDemo({ onInteractionStart, onInteractionEnd }: ReviewAnalysisDemoProps) {
     const result = {
         satisfactionScore: 92,
         pros: ["소재가 부드럽고 고급스러워요", "핏이 딱 떨어져서 예쁩니다", "배송이 정말 빨랐어요"],
@@ -22,7 +27,13 @@ export function ReviewAnalysisDemo() {
     };
 
     return (
-        <div className="h-full w-full rounded-3xl bg-white/5 backdrop-blur-xl border border-white/10 p-4 sm:p-6 lg:p-8 flex flex-col overflow-y-auto scrollbar-hide shadow-2xl">
+        <div
+            className="h-full w-full rounded-3xl bg-white/5 backdrop-blur-xl border border-white/10 p-4 sm:p-6 lg:p-8 flex flex-col overflow-y-auto scrollbar-hide shadow-2xl"
+            onMouseEnter={onInteractionStart}
+            onMouseLeave={onInteractionEnd}
+            onTouchStart={onInteractionStart}
+            onTouchEnd={onInteractionEnd}
+        >
             <div className="flex items-center gap-3 mb-8 border-b border-white/5 pb-6">
                 <div className="p-2 rounded-lg bg-white/10">
                     <Sparkles className="h-5 w-5 text-white" />

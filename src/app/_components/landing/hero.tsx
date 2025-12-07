@@ -18,7 +18,7 @@ export function Hero() {
 
                     <div className="mb-6 flex items-center justify-center gap-3">
                         <div className="h-[1px] w-12 bg-gradient-to-r from-transparent to-white/30"></div>
-                        <span className="font-mono text-lg font-semibold tracking-[0.3em] text-white">나만의 AI 스타일리스트</span>
+                        <span className="font-mono text-sm sm:text-lg font-semibold tracking-[0.3em] text-white">나만의 AI 스타일리스트</span>
                         <div className="h-[1px] w-12 bg-gradient-to-l from-transparent to-white/30"></div>
                     </div>
 
@@ -26,7 +26,7 @@ export function Hero() {
                         ClosAI
                     </h1>
 
-                    <p className="mx-auto mb-16 max-w-2xl text-xl text-[#86868b] font-normal leading-relaxed">
+                    <p className="mx-auto mb-16 max-w-2xl text-sm sm:text-xl text-[#86868b] font-normal leading-relaxed">
                         인공지능이 당신의 체형과 리뷰를 분석하여 완벽한 스타일을 제안합니다.<br className="hidden sm:block" />
                         매번 더 이상 어떤 옷을 사야 잘 맞을지 고민하지 마세요.
                     </p>
