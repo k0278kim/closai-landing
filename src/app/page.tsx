@@ -2,7 +2,6 @@ import { Background } from "~/app/_components/landing/background";
 import { CTA } from "~/app/_components/landing/cta";
 import { Demo } from "~/app/_components/landing/demo";
 import { Features } from "~/app/_components/landing/features";
-import { Goal } from "~/app/_components/landing/goal";
 import { Hero } from "~/app/_components/landing/hero";
 import { HydrateClient } from "~/trpc/server";
 
@@ -16,7 +15,6 @@ export default async function Home() {
           <Hero />
           <Demo />
           <Features />
-          <Goal />
           <CTA />
 
           {/* Minimal Footer */}

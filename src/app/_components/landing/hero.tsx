@@ -16,14 +16,19 @@ export function Hero() {
                         AI Fashion Analysis v2.0
                     </div>
 
-                    <h1 className="mb-8 text-6xl font-semibold tracking-tight sm:text-[7rem] leading-[1.05]">
-                        나만의 <span className="text-[#86868b]">AI 스타일리스트</span><br />
+                    <div className="mb-6 flex items-center justify-center gap-3">
+                        <div className="h-[1px] w-12 bg-gradient-to-r from-transparent to-white/30"></div>
+                        <span className="font-mono text-lg font-semibold tracking-[0.3em] text-white">나만의 AI 스타일리스트</span>
+                        <div className="h-[1px] w-12 bg-gradient-to-l from-transparent to-white/30"></div>
+                    </div>
+
+                    <h1 className="mb-8 text-7xl font-bold tracking-tighter text-transparent sm:text-[8rem] bg-clip-text bg-gradient-to-b from-white via-white to-white/50 drop-shadow-2xl">
                         ClosAI
                     </h1>
 
                     <p className="mx-auto mb-16 max-w-2xl text-xl text-[#86868b] font-normal leading-relaxed">
-                        인공지능이 당신의 옷장을 분석하여 완벽한 스타일을 제안합니다.<br className="hidden sm:block" />
-                        매일 아침, 더 이상 무엇을 입을지 고민하지 마세요.
+                        인공지능이 당신의 체형과 리뷰를 분석하여 완벽한 스타일을 제안합니다.<br className="hidden sm:block" />
+                        매번 더 이상 어떤 옷을 사야 잘 맞을지 고민하지 마세요.
                     </p>
 
                     <div className="flex flex-col items-center justify-center gap-6">
